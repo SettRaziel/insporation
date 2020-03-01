@@ -1,0 +1,9 @@
+AuthorName: 'The insporation* developers'
+Categories:
+- Internet
+CurrentVersionCode: 2147483647
+IssueTracker: 'https://github.com/jhass/insporation/issues'
+Name: insporation*
+SourceCode: 'https://github.com/jhass/insporation'
+Summary: 'A flutter based client for diaspora*'
+WebSite: 'https://github.com/jhass/insporation'
