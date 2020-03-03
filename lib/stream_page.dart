@@ -42,7 +42,10 @@ class _StreamPageState extends ItemStreamState<Post, StreamPage> with PostStream
       bottomNavigationBar: widget.type != StreamType.tag ? NavigationBar(currentPage: PageType.stream) : null,
       appBar: widget.type == StreamType.tag ? AppBar(
         title: Text(widget.title),
-      ) : null,
+      ) : AppBar(
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        actions: <Widget>[_StreamTypeSelector(currentType: widget.type)],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
@@ -72,7 +75,6 @@ class _StreamPageState extends ItemStreamState<Post, StreamPage> with PostStream
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          selector,
           Padding(
             padding: EdgeInsets.all(8),
             child: _AspectsSelector(currentSelection: widget.aspects),
@@ -83,7 +85,6 @@ class _StreamPageState extends ItemStreamState<Post, StreamPage> with PostStream
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          selector,
           Padding(
             padding: EdgeInsets.all(8),
             child: OutlineButton(
@@ -100,7 +101,7 @@ class _StreamPageState extends ItemStreamState<Post, StreamPage> with PostStream
         ],
       );
     } else {
-      return selector;
+      return null;
     }
   }
 }
@@ -119,19 +120,24 @@ class _StreamTypeSelector extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8.0),
       alignment: Alignment.topLeft,
+      width: MediaQuery.of(context).size.width,
+      height: 50,
       child: ButtonTheme(
         alignedDropdown: true,
         child: DropdownButton(
           value: currentType,
           hint: Text("Change View"),
-          icon: Icon(Icons.view_list),
+          icon: Icon(
+              Icons.view_list,
+              color: Theme.of(context).colorScheme.onSurface,
+          ),
           iconSize: 30,
           style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).colorScheme.onSurface
           ),
           underline: SizedBox.shrink(),
-          isExpanded: true,
+           isExpanded: true,
           onChanged: (newValue) {
             if (newValue != currentType) {
               Navigator.pushReplacementNamed(context, '/stream/${describeEnum(newValue)}');
